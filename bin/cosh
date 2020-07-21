@@ -1,0 +1,62 @@
+#!/bin/sh
+# command launcher for cosher stack on swarm mode
+
+cosh(){
+  loadenv(){
+    MODULE_OPTION_DEFAULT_DESC="<command>"
+    MODULE_SUBCOMMAND_DEFAULT_DESC=
+    test -z ${cosh_container} && setvar cosh_container \. || setvar cosh_container $cosh_container
+    test -z ${cosh_user} && setvar cosh_user duser || setvar cosh_user $cosh_user
+    test -z ${cosh_home} && setvar cosh_home /home/duser || setvar cosh_home $cosh_home
+
+    app_prepend=coshapp
+
+    default_image_ver=10.3
+    default_image_base=debian
+    default_app_name=firefox
+    default_app_image=${app_prepend:?app_prepend not set!}/${default_app_name}:${default_image_base:?image base not set}-${default_image_ver:?image version not set}
+  }
+
+  #SHELIB_OPTIONS
+  parseopts(){
+    case $1 in 
+    -c) #container
+    ##specify target container
+      shift; set_container $@; shiftstack 1 $@
+      ;;
+    -u) #username
+    ##specify target user
+      shift; set_user $@; shiftstack 1 $@
+      ;;
+    -l) ##BREAK_OPT
+    ##list container
+      list_container; exit ;;
+    -o|--onetime)
+    ##make temporary container to execute commands
+      shift; set_cmd $@
+      launch_temporary_container
+      shift 1; set_cmd $@;
+      execute_in_container 
+      remove_temporary_container
+      exit;
+    ;;
+    -h) ##BREAK_OPT
+    ##show this help
+      showhelp ${2:---short}; exit ;;
+    -*) throw unknown option $1 ;;
+    *) return 1 ;;
+    esac
+  }
+  #SHELIB_OPTIONS
+
+  parseargs(){ set_cmd $@;}
+
+  execute(){
+    chk_active_container
+    execute_in_container && exit || exit 1;
+  }
+
+
+}
+
+cook cosh $@

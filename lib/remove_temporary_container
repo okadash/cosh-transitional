@@ -1,0 +1,5 @@
+#!/bin/sh
+  remove_temporary_container(){
+    silent getvar cosh_container || throw unknown container name 
+    docker stop `getvar cosh_container`
+  }

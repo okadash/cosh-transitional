@@ -1,0 +1,4 @@
+#!/bin/sh
+get_target_container(){
+  list_container | grep -E "$(getvar cosh_container)" | head -1 
+}

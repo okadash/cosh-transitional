@@ -1,0 +1,9 @@
+#!/bin/sh
+
+chk_set_container(){ 
+  test -z "${1}" && throw "at least one argument needed for -c opts, abort!"; 
+}
+set_container(){
+  chk_set_container $1
+  setvar cosh_container $1;
+}

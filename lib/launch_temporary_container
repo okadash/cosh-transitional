@@ -1,0 +1,22 @@
+#!/bin/sh
+  launch_temporary_container(){
+    setvar cosh_container cosh_`genseed 8`
+    docker run --name `getvar cosh_container` \
+      -dt \
+      --rm \
+      -u `getvar cosh_user` \
+      -e DISPLAY=$DISPLAY \
+      -e LANGUAGE=$LANGUAGE \
+      -e LANG=$LANG \
+      -e LC_ALL=$LC_ALL \
+      -e XMODIFIERS=$XMODIFIERS \
+      -e GTK_IM_MODULE=$GTK_IM_MODULE \
+      -e QT_IM_MODULE=$QT_IM_MODULE \
+      -v /dev/dri:/dev/dri \
+      -v /dev/shm:/dev/shm \
+      --mount type=volume,source=filezilla01,destination=/home/duser/.config \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      -v /run/dbus/system_bus_socket:/run/dbus/system_bus_socket \
+      ${app_image:-$default_app_image} \
+      sh -c "while :; do sleep 100000; done"
+  }

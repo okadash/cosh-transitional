@@ -1,0 +1,4 @@
+#!/bin/sh
+list_container(){ 
+  docker ps | sed -r -e s/.\+\ //g | grep -vE \^NAME ;
+}

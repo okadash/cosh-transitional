@@ -1,0 +1,7 @@
+#!/bin/sh
+  execute_in_container(){
+    docker exec \
+      -u $(getvar cosh_user) \
+      -it `get_target_container` \
+      ${cmd_arg:-bash}
+  }

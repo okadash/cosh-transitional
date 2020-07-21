@@ -1,0 +1,3 @@
+#!/bin/sh
+  set_cmd(){ sanitize "$*"; test $# -eq 0 || cmd_arg=$@; }
+

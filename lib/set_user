@@ -1,0 +1,8 @@
+#!/bin/sh
+chk_set_user(){
+  test -z "$1" && throw "at least one argument needed for -u opts, abort!"; 
+}
+set_user(){
+  chk_set_user $@;
+  setvar cosh_user $1;
+}

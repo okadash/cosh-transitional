@@ -1,0 +1,4 @@
+#!/bin/sh
+chk_active_container(){
+  silent list_container || throw no active container;
+}
