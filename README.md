@@ -19,3 +19,13 @@ options:
   -o|--onetime		make temporary container to execute commands
   -h 			show this help
 ```
+
+# REQUIREMENT
+
+shelib>=0.4.0
+
+# INSTALL 
+
+```
+shef install https://github.com/okadash/cosh-transitional
+```
