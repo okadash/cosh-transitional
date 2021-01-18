@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This package is deprecated. use [okadash/cosh](https://github.com/okadash/cosh)
+
 cosh: containered apps wrapper script
 
 # ABOUT
